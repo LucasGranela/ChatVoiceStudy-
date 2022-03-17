@@ -1,10 +1,13 @@
 #include "outputaudio.h"
+#include <QApplication>
 #include <iostream>
 
 OutputAudio::OutputAudio(QObject* parent) : QObject(parent){
     QAudioFormat format;
 
-    sourceFile.setFileName("teste.raw");
+    QString path = qApp->applicationDirPath() + "/teste.raw";
+
+    sourceFile.setFileName(path);
 
     format.setSampleRate(8000);
     format.setChannelCount(1);
@@ -21,7 +24,7 @@ OutputAudio::OutputAudio(QObject* parent) : QObject(parent){
 
     audio = new QAudioOutput(format);
 
-    connect(audio, SIGNAL(stateChanged(QAudio::State)), this, SLOT(handleStateChanged(QAudio::State)));
+    connect(audio, SIGNAL(stateChanged(QAudio::State)), this, SLOT(audioStatusChanged(QAudio::State)));
 
 }
 
