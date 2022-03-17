@@ -1,10 +1,11 @@
 #include "outputaudio.h"
 #include <iostream>
+#include <QCoreApplication>
 
 OutputAudio::OutputAudio(QObject* parent) : QObject(parent){
     QAudioFormat format;
 
-    sourceFile = new QFile("test.raw");
+    sourceFile = new QFile(QCoreApplication::applicationDirPath() + "/test.raw");
 
     if(!sourceFile->open(QIODevice::ReadOnly | QIODevice::Text)){
         std::cout << sourceFile->errorString().toStdString() << "\n";
