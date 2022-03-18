@@ -12,7 +12,7 @@ OutputAudio::OutputAudio(QObject* parent) : QObject(parent){
 
         return;
     }
-    format.setSampleRate(8000);
+    format.setSampleRate(88200);
     format.setChannelCount(1);
     format.setSampleSize(8);
     format.setCodec("audio/pcm");

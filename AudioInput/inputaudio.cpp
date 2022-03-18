@@ -8,7 +8,7 @@ InputAudio::InputAudio(QObject *parent) : QObject(parent) {
     destinationFile->open( QIODevice::WriteOnly | QIODevice::Truncate );
     QAudioFormat format;
     // Set up the desired format, for example:
-    format.setSampleRate(8000);
+    format.setSampleRate(88200);
     format.setChannelCount(1);
     format.setSampleSize(8);
     format.setCodec("audio/pcm");
@@ -26,7 +26,7 @@ InputAudio::InputAudio(QObject *parent) : QObject(parent) {
 }
 
 void InputAudio::start() {
-    QTimer::singleShot(3000, this, SLOT(stopRecording()));
+    QTimer::singleShot(5000, this, SLOT(stopRecording()));
     audio->start(destinationFile);
     // Records audio for 3000ms
 }
@@ -38,6 +38,7 @@ void InputAudio::audioStatusChanged(QAudio::State newState) {
             // Error handling
         } else {
             // Finished recording
+            std::cout << "audio ended";
         }
         break;
 
@@ -54,6 +55,7 @@ void InputAudio::audioStatusChanged(QAudio::State newState) {
 void InputAudio::stopRecording() {
     audio->stop();
     destinationFile->close();
+    std::cout << "audio ended";
     delete audio;
     delete destinationFile;
 }
